@@ -83,7 +83,9 @@ class BarChart(Chart):
 def index(request):
     c = {}
     c.update(csrf(request))
-    abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
+    listo = Func(F('pdf_tags'), function='unnest')
+    abc = PDF.objects.annotate(listo).values_list('list', flat=True).annotate(
+        num=Count('listo'))
     values = []
     data = []
     total_count = PDF.objects.all().count()
