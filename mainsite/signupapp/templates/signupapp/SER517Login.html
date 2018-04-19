@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% load staticfiles %}
+    <title>Sign up</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../static/signupapp/css-own/main.css">
+    <link rel="shortcut icon" type="image/png" href="../../static/owl.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/owl.png">
+
+</head>
+
+<script>
+    function validation() {
+        alert("Please login first");
+    }
+</script>
+
+<body>
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+</div>
+{% endfor %}
+<nav class="navbar navbar-expand-lg navbar-light navbar-style">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand navbar-brand-text" href="#">
+        <img src="../../static/owl.png" width="30px" height="50px" style="margin: 10px">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li>
+                <a class="nav-link" href="/search/searching">Search for Syllabi<span
+                        class="sr-only">(current)</span></a>
+            </li>
+            {% block content %}
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="../logout/">Logout</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="../login/">Login</a></li>
+            {% endif %}
+            {% endblock %}
+            <li class="nav-item">
+                <a class="nav-link disabled" onclick="validation();" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../about">About</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<form name="form" id="formentry" class="form-horizontal" enctype="multipart/form-data" role="form" method="POST">
+    <div class="container mt-5">
+        <div style="background:transparent !important" class="jumbotron">
+            <h1 class="display-3">Sign up</h1>
+            <hr class="my-2">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field1">{% csrf_token %}First Name</label>
+                                        <input type="text" required="required" class="form-control" name="first_name"
+                                               id="field1" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field2">{% csrf_token %}Last Name</label>
+                                        <input type="text" required="required" class="form-control" name="last_name"
+                                               id="field2" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field3">{% csrf_token %}User Name</label>
+                                        <input type="text" required="required" class="form-control" name="user_name"
+                                               id="field3" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field9">{% csrf_token %}University</label>
+                                        <input type="text" required="required" class="form-control" name="university"
+                                               id="field9" aria-describedby="helpId" placeholder="">
+                                        <small id="helptext" class="form-text text-muted">
+                                            Please use the full name of your University.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field4">{% csrf_token %}Email Id:</label>
+                                        <input type="email" required="required" class="form-control" name="email_id"
+                                               id="field4" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field5">{% csrf_token %} Retype Email:</label>
+                                        <input type="email" required="required" class="form-control" name="re_email_id"
+                                               id="field5" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field7">{% csrf_token %} Password</label>
+                                        <input type="password" required="required" class="form-control" name="pwd"
+                                               id="field7" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="field8">{% csrf_token %} Retype Password</label>
+                                        <input type="password" required="required" class="form-control" name="re_pwd"
+                                               id="field8" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="is_professor"
+                                                   id="is_professor" value="checkedValue"> {% csrf_token %} Is
+                                            professor?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-dark" name="button_click">{% csrf_token %}Sign
+                                        up
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        &nbsp;
+    </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+</form>
+</body>
+
+</html>
