@@ -85,6 +85,8 @@ def index(request):
     c.update(csrf(request))
 
     abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
+    abc = set(abc)
+    list = {}
     list_dic = Counter(abc)
     values = []
     data = []
@@ -141,25 +143,19 @@ def analyze(request):
 
     if search_uni == '' and search_lev == 'None':
         title = ''
-        abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True).annotate(
-            num=Count('list'))
+        abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
     elif search_uni == '' and search_lev != 'None':
         title = search_lev + ' in all universities'
         abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True).filter(
-            year=search_lev).annotate(num=Count('list'))
+            year=search_lev)
     elif search_uni != '' and search_lev == 'None':
         title = 'All level in ' + search_uni
         abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True).filter(
-            university=search_uni).annotate(num=Count('list'))
+            university=search_uni)
     else:
         abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True).filter(
-            university=search_uni, year=search_lev).annotate(num=Count('list'))
-    list_tags = list(abc)
-    list_dic = {}
-    for i in range(0, len(list_tags), 2):
-        list_dic[list_tags[i]] = list_tags[i + 1]
-
-    print(list_dic)
+            university=search_uni, year=search_lev)
+    list_dic =Counter(abc)
 
     pie = PieChart()
     bar = BarChart()
