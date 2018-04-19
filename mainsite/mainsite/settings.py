@@ -139,7 +139,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, 'about_page', 'templates', 'static', 'about_page'),
-    os.path.join(BASE_DIR, 'search','templates','search','src','client','public'),
+    #os.path.join(BASE_DIR, 'search','templates','search','src','client','public'),
 ]
 
 LOGIN_REDIRECT_URL = 'home'
