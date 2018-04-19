@@ -186,12 +186,11 @@ def uni_analysis(request):
     else:
         spec_tag ='General'
 
-    return HttpResponse(spec_tag)
-
     spec_tagu = spec_tag
     spec_tag = spec_tag.lower()
     #print(spec_tag)
     abc = PDF.objects.filter(pdf_tags__contains=[spec_tag])
+    return HttpResponse(abc)
     total_count = PDF.objects.filter(pdf_tags__contains=[spec_tag]).count()
     uni_list = []
     for one_pdf in list(abc):
