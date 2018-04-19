@@ -153,7 +153,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Don't forget to use absolute paths, not relative paths.
 # os.path.join(BASE_DIR, 'static/'),
 
-DATABASES = {}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'SER517',
+        'USER': 'npiedy',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
