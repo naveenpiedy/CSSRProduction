@@ -85,7 +85,6 @@ def index(request):
     c.update(csrf(request))
 
     abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
-    abc = set(abc)
     list_dic = Counter(abc)
     values = []
     data = []
