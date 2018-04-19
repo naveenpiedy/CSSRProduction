@@ -10,12 +10,13 @@ mainsite/mainsite/keys.py
 
 mainsite/media
 
-mainsite/homeapp/migrations
+mainsite/ALTER
 
-mainsite/signupapp/migrations
+# Elastic Beanstalk Files
 
-mainsite/ALTER
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+.elasticbeanstalk/*
+
+!.elasticbeanstalk/*.cfg.yml
+
+!.elasticbeanstalk/*.global.yml
+
