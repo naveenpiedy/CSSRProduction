@@ -84,7 +84,7 @@ def index(request):
     c = {}
     c.update(csrf(request))
     listo = Func(F('pdf_tags'), function='unnest')
-    abc = PDF.objects.annotate(listo).values_list('list', flat=True).annotate(
+    abc = PDF.objects.annotate(listo).values_list('listo', flat=True).annotate(
         num=Count('listo'))
     values = []
     data = []
