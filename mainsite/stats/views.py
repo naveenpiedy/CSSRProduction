@@ -85,15 +85,10 @@ def index(request):
     c.update(csrf(request))
 
     abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
-    abc2 = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest'))
-    return HttpResponse(abc)
+    list_dic = Counter(abc)
     values = []
     data = []
     total_count = PDF.objects.all().count()
-    list_tags = list(abc)
-    list_dic = {}
-    for i in range(0, len(list_tags), 2):
-        list_dic[list_tags[i]] = list_tags[i + 1]
 
     pie = PieChart()
     bar = BarChart()
