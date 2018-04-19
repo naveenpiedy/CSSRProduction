@@ -86,7 +86,6 @@ def index(request):
 
     abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
     abc = set(abc)
-    list = {}
     list_dic = Counter(abc)
     values = []
     data = []
@@ -190,8 +189,8 @@ def uni_analysis(request):
     spec_tag = spec_tag.lower()
     #print(spec_tag)
     abc = PDF.objects.filter(pdf_tags__contains=[spec_tag])
-    return HttpResponse(abc)
     total_count = PDF.objects.filter(pdf_tags__contains=[spec_tag]).count()
+    return HttpResponse(total_count)
     uni_list = []
     for one_pdf in list(abc):
         uni_list.append(one_pdf.university)
