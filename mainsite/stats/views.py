@@ -178,17 +178,15 @@ def uni_analysis(request):
     #print(request.POST)
     total_count = 0
 
-    dic={}
-    tagsend = ''
-
     pie = PieChart()
     bar = BarChart()
-    title = ''
 
     if 'tag' in request.POST:
         spec_tag = request.POST['tag']
     else:
         spec_tag ='General'
+
+    return HttpResponse(spec_tag)
 
     spec_tagu = spec_tag
     spec_tag = spec_tag.lower()
