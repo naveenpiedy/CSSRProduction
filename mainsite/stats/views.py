@@ -85,8 +85,8 @@ def index(request):
     c.update(csrf(request))
 
     abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest')).values_list('list', flat=True)
-    abc = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest'))
-    return HttpResponse(abc)
+    abc2 = PDF.objects.annotate(list=Func(F('pdf_tags'), function='unnest'))
+    return HttpResponse([abc, abc2])
     values = []
     data = []
     total_count = PDF.objects.all().count()
