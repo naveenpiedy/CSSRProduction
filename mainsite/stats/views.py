@@ -189,7 +189,6 @@ def uni_analysis(request):
     #print(spec_tag)
     abc = PDF.objects.filter(pdf_tags__contains=[spec_tag])
     total_count = PDF.objects.filter(pdf_tags__contains=[spec_tag]).count()
-    return HttpResponse(total_count)
     uni_list = []
     for one_pdf in list(abc):
         uni_list.append(one_pdf.university)
