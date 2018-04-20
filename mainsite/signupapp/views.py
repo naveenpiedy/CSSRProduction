@@ -61,31 +61,28 @@ def index(request):
                 isprofessor=True
         if "button_click" in request.POST and flag:
             #print(username, password)
-            try:
-                user = User.objects.create_user(username= username, password= password, email=email)
-                user.first_name = first_name
-                user.last_name = last_name
-                user.is_active = False
-                user.save()
-                usertable = UserTable()
-                usertable.university = university
-                usertable.isprofessor = isprofessor
-                usertable.user = user
-                usertable.save()
-                current_site = get_current_site(request)
-                message = render_to_string('signupapp/email.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                })
-                mail_subject = 'Activate your account.'
-                to_email = email
-                email = EmailMessage(mail_subject, message, to=[to_email])
-                email.send()
-                return HttpResponse('Please confirm your email address to complete the registration')
-            except(Exception):
-                return HttpResponse(Exception)
+            user = User.objects.create_user(username= username, password= password, email=email)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.is_active = False
+            user.save()
+            usertable = UserTable()
+            usertable.university = university
+            usertable.isprofessor = isprofessor
+            usertable.user = user
+            usertable.save()
+            current_site = get_current_site(request)
+            message = render_to_string('signupapp/email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            mail_subject = 'Activate your account.'
+            to_email = email
+            email = EmailMessage(mail_subject, message, to=[to_email])
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
     return render(request, 'signupapp/SER517Login.html', c)
 
 def activate(request, uidb64, token):
