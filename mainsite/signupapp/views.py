@@ -27,7 +27,6 @@ def index(request):
             else:
                 flag = False
                 messages.error(request, "Password's don't match.")
-
         else:
             flag = False
             messages.error(request, "Password field cannot be blank")
@@ -86,7 +85,7 @@ def index(request):
                 email.send()
                 return HttpResponse('Please confirm your email address to complete the registration')
             except(Exception):
-                messages.error(request, "Username already exists")
+                return HttpResponse(Exception)
     return render(request, 'signupapp/SER517Login.html', c)
 
 def activate(request, uidb64, token):
