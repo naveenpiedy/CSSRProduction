@@ -25,11 +25,12 @@ def index(request):
             if request.POST['pwd'] == request.POST['re_pwd']:
                 password = request.POST['pwd']
             else:
-                messages.error(request, "Password's don't match.")
                 flag = False
+                messages.error(request, "Password's don't match.")
+
         else:
-            messages.error(request, "Password field cannot be blank")
             flag = False
+            messages.error(request, "Password field cannot be blank")
         if request.POST['email_id'][-4:] == '.edu':
             if request.POST['email_id'] == request.POST['re_email_id']:
                 email = request.POST['email_id']
@@ -60,7 +61,7 @@ def index(request):
             if is_professor=='checkedValue':
                 isprofessor=True
         if "button_click" in request.POST and flag:
-            print(username, password)
+            #print(username, password)
             try:
                 user = User.objects.create_user(username= username, password= password, email=email)
                 user.first_name = first_name
