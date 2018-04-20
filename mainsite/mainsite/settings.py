@@ -124,11 +124,12 @@ USE_L10N = True
 USE_TZ = True
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ser517softwarefactory@gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = "NaveenPiedy"
 EMAIL_HOST_PASSWORD = 'ser517ser517'
 EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'CSSR@auth.com'
 
 LOGOUT_REDIRECT_URL = '/login'
 
