@@ -302,7 +302,7 @@ def edit_content(request, id):
 
             spec_pdf.pdf_desc = new_desc
             spec_pdf.professor_name = new_prof
-            spec_pdf.university = new_univ
+            spec_pdf.university = new_univ.lower()
             spec_pdf.subjectName = new_sub
             spec_pdf.pdf_tags = new_list
             spec_pdf.pdf_topic = new_topic
