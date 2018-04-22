@@ -55,8 +55,10 @@ def index(request):
             str = os.path.join(settings.MEDIA_ROOT, myfile.name)
             result = doPDF(str)
             final_result = extractInfo(result)
-            if len(final_result) > 0:
+            if final_result[0].find('topic')==0:
                 pdf_obj.pdf_topic = final_result[0]
+            if final_result[0].find('descr')==0 or final_result[0].find('summa')==0:
+                pdf_obj.pdf_desc = final_result[0]
             if len(final_result) > 1:
                 pdf_obj.pdf_desc = final_result[1]
 
@@ -302,7 +304,7 @@ def edit_content(request, id):
 
             spec_pdf.pdf_desc = new_desc
             spec_pdf.professor_name = new_prof
-            spec_pdf.university = new_univ.lower()
+            spec_pdf.university = new_univ
             spec_pdf.subjectName = new_sub
             spec_pdf.pdf_tags = new_list
             spec_pdf.pdf_topic = new_topic
@@ -313,19 +315,20 @@ def edit_content(request, id):
             return render(request, 'homeapp/EditSyllabus.html', {
                 'Description': new_desc, 'professor': new_prof, 'university': new_univ, 'subjectname': new_sub,
                 'Topics': new_topic,
-                'tag1': k1.lower(), 'tag2': k2.lower(), 'tag3': k3.lower(), 'year': new_year
+                'tag1': k1, 'tag2': k2, 'tag3': k3, 'year': new_year
             })
         else:
             tag1 = ''
             tag2 = ''
             tag3 = ''
             if len(spec_pdf.pdf_tags) > 0:
-                tag1 = spec_pdf.pdf_tags[0].lower()
+                tag1 = spec_pdf.pdf_tags[0]
             if len(spec_pdf.pdf_tags) > 1:
-                tag2 = spec_pdf.pdf_tags[1].lower()
+                tag2 = spec_pdf.pdf_tags[1]
             if len(spec_pdf.pdf_tags) > 2:
-                tag3 = spec_pdf.pdf_tags[2].lower()
+                tag3 = spec_pdf.pdf_tags[2]
 
+            print(tag1, tag2)
 
             return render(request, 'homeapp/EditSyllabus.html', {
                 'Description': spec_pdf.pdf_desc, 'professor': spec_pdf.professor_name,
