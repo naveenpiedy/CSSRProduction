@@ -55,13 +55,10 @@ def index(request):
             str = os.path.join(settings.MEDIA_ROOT, myfile.name)
             result = doPDF(str)
             final_result = extractInfo(result)
-            if final_result[0].find('topic')==0:
+            if len(final_result) > 0:
                 pdf_obj.pdf_topic = final_result[0]
-            if final_result[0].find('descr')==0 or final_result[0].find('summa')==0:
-                pdf_obj.pdf_desc = final_result[0]
             if len(final_result) > 1:
                 pdf_obj.pdf_desc = final_result[1]
-
             prof_name = request.POST['professor']
             univ_name = request.POST['university']
             subj_name = request.POST['subjectname']
@@ -100,9 +97,6 @@ def index(request):
             tag_group = pdf_obj.pdf_tags
             for each_tag in tag_group:
                 record = Tag.objects.get(tagName=each_tag)
-                print('+_+_+_')
-                print(record)
-                print(pdf_obj.year)
                 if pdf_obj.year == 'Freshman':
                     record.freshman = True
                 if pdf_obj.year == 'Junior':
@@ -121,7 +115,6 @@ def index(request):
             for upl in user_uploaded:
                 id_list.append(upl.id)
             max_id = max(id_list)
-            print(max_id)
             return redirect('edit_content', id=max_id)
 
     return render(request, 'homeapp/dashboard.html', {
